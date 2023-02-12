@@ -1,7 +1,6 @@
 import 'package:bai_tap_figma1/ui/screen/change_password/change_password_screen.dart';
 import 'package:bai_tap_figma1/ui/screen/create_account/create_account.dart';
 import 'package:bai_tap_figma1/ui/screen/home/home_screen.dart';
-import 'package:bai_tap_figma1/ui/screen/login/create_account_screen.dart';
 import 'package:bai_tap_figma1/ui/screen/login/login_screen.dart';
 import 'package:bai_tap_figma1/ui/screen/menu/side_menu_screen.dart';
 import 'package:bai_tap_figma1/ui/screen/profile/profile_screen.dart';
@@ -17,7 +16,6 @@ class DataBundle{
 String? id ;
 DataBundle({this.id});
 }
-
 
 class RouterGenerator{
   static const routeHome = "/home";
@@ -46,7 +44,11 @@ class RouterGenerator{
       case routeHome:
         return MaterialPageRoute(builder: (_)=> const HomeScreen());
       case routeMenu:
-        return MaterialPageRoute(builder: (_)=> const SideMenuScreen() );
+        return PageTransition(
+            child: SideMenuScreen(),
+            type: PageTransitionType.leftToRight,
+            duration: Duration(milliseconds: 500)
+        );
       case routeProfile:
         return MaterialPageRoute(builder: (_)=> const ProfileScreen());
       case routeSetting:
