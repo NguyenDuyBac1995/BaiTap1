@@ -1,7 +1,7 @@
 import 'package:bai_tap_figma1/ui/widget/utils/text_styles.dart';
 import 'package:flutter/material.dart';
-import '../utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 class Common {
   TextFormField textFromField({
@@ -45,11 +45,11 @@ class Common {
         suffixIcon: suffixIcon,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(width: 0.5, color: Colors.blue),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(12),
         ),
         border: OutlineInputBorder(
-            borderSide: BorderSide(width: 0.5, color: Colors.black38),
-            borderRadius: BorderRadius.circular(10)),
+            borderSide: BorderSide(width: 0.2, color: Color(0xffEEF2FE)),
+            borderRadius: BorderRadius.circular(12)),
       ),
     );
     return textFormField;
@@ -64,7 +64,7 @@ class Common {
   }) {
     return GestureDetector(
       child: Container(
-        height: 50,
+        height: 55,
         width: width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -79,16 +79,16 @@ class Common {
                     fontWeight: FontWeight.bold,
                     color: Colors.white)),
             SizedBox(width: 5),
-            icon == true ?Icon(
-              Icons.arrow_forward,
-              color: Colors.white,
-            ): Text(''),
+            icon == true
+                ? Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                  )
+                : Text(''),
           ],
         ),
       ),
-      onTap: () {
-        callback;
-      },
+      onTap: callback,
     );
   }
 
@@ -159,31 +159,69 @@ class Common {
       )),
     );
   }
-  ListTile ItemList(
-  {
-  String? strName,
-  bool value = false,
+
+  ListTile ItemList({
+    String? strName,
+    bool value = false,
     VoidCallback? callback,
-}
-      ){
+  }) {
     return ListTile(
       leading: Container(
-          padding: EdgeInsets.only(right: 20),
-          height: 50,
-          width: 4,
-          color:
-        value == true ? Color(0xFF567DF4) : Color(0xffE5E5E5),
+        height: 50,
+        width: 4,
+        color: value == true ? Color(0xFF567DF4) : Color(0xffE5E5E5),
       ),
-      title: Text(
-        strName??'',
-        style: TextStyle(
-          fontSize: 20,
-          fontFamily: 'gilroy',
-          fontWeight:
-          value == true ? FontWeight.bold : FontWeight.w400
-        ),
-      ),
+      title: Text(strName ?? '',
+          style: TextStyles.textItem.copyWith(
+              fontWeight: value == true ? FontWeight.bold : FontWeight.w300)),
       onTap: callback,
     );
   }
+
+  Column StorageItem({
+    Color? iconColor,
+    String? strNameFile,
+    String? strGB,
+    String? assetsSvg,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.circle, color: iconColor, size: 14),
+                SizedBox(width: 10),
+                Text(
+                  strNameFile ?? '',
+                  style: TextStyles.textSize22.copyWith(fontSize: 20),
+                ),
+              ],
+            ),
+            SvgPicture.asset(
+              assetsSvg ?? '',
+              height: 5.3,
+            )
+          ],
+        ),
+        SizedBox(height: 5),
+        Padding(
+            padding: EdgeInsets.only(left: 22, top: 4, bottom: 26),
+            child: Text(strGB ?? ''))
+      ],
+    );
+  }
+  // void showToastSuccess(String strToast){
+  //   Fluttertoast.showToast(
+  //       msg: strToast,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       gravity: ToastGravity.BOTTOM,
+  //       timeInSecForIosWeb: 4,
+  //       backgroundColor: Colors.blue,
+  //       textColor: Colors.white,
+  //       fontSize: 16.0
+  //   );
+  // }
 }

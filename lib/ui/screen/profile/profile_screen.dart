@@ -14,72 +14,137 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool _changeColor = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff8f8f8),
-      appBar: appBarCommonV1(context,strTitle: 'My Profile',suffixIcon: false ),
-      body:
-       Container(
+      appBar:
+          appBarCommonV1(context, strTitle: 'My Profile', suffixIcon: false),
+      body: Container(
           padding: EdgeInsets.symmetric(horizontal: 30),
           height: MediaQuery.of(context).size.height,
           child: Stack(
             children: [
               Column(
                 children: [
-                  SizedBox(height:18,),
-                  Container(
-                    height: 240,
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15)
+                  SizedBox(
+                    height: 18,
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      height: 240,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: _changeColor?Color(0xffFFFFFF):Color(0xff22215B),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(width: 50),
+                              Transform.scale(
+                                  scale: 1.2,
+                                  child: SvgPicture.asset(
+                                    'assets/svg/avata.svg',
+                                  )),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 5),
+                                decoration: BoxDecoration(
+                                    color: 
+                                         Color(0xffFF317B),
+                                    borderRadius: BorderRadius.circular(7)),
+                                child: Text(
+                                  'PRO',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300,
+                                      fontFamily: 'gilroy'),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 15),
+                          Text(
+                            'Neelesh Chaudhary',
+                            style: TextStyles.textSize24.copyWith(
+                                fontSize: 20,
+                                color: _changeColor
+                                    ? Color(0xff22215B)
+                                    : Color(0xffFFFFFF)),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'UI / UX Designer',
+                            style: TextStyles.textSize14.copyWith(
+                                color: _changeColor
+                                    ? Colos.LOGINTEXT1
+                                    : Color(0xffFFFFFF)),
+                          ),
+                          SizedBox(height: 12),
+                          Text(
+                            'Lorem ipsum dolor sit amet, consectetur',
+                            style: TextStyles.textSize14.copyWith(
+                                fontWeight: FontWeight.w100,
+                                color: _changeColor
+                                    ? Color(0xff22215B).withOpacity(0.6)
+                                    : Color(0xffFFFFFF)),
+                          ),
+                          Text(
+                            'adipiscing elit. Ornare pretium placerat ut ',
+                            style: TextStyles.textSize14
+                                .copyWith(fontWeight: FontWeight.w100,color: _changeColor
+                                ? Color(0xff22215B).withOpacity(0.6)
+                                : Color(0xffFFFFFF)),
+                          ),
+                          Text(
+                            'platea.',
+                            style: TextStyles.textSize14
+                                .copyWith(fontWeight: FontWeight.w100,color: _changeColor
+                                ? Color(0xff22215B).withOpacity(0.6)
+                                : Color(0xffFFFFFF)),
+                          )
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(width: 50),
-                            Transform.scale(
-                                scale: 1.2,
-                                child: SvgPicture.asset('assets/svg/avata.svg',)),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 12,vertical: 5),
-                              decoration: BoxDecoration(
-                                  color: Color(0xffFF317B),
-                                  borderRadius: BorderRadius.circular(7)
-                              ),
-                              child: Text('PRO', style: TextStyle(color: Colors.white, fontSize:14,fontWeight: FontWeight.w300 ,fontFamily: 'gilroy'),),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 15),
-                        Text('Neelesh Chaudhary',style: TextStyles.textSize24.copyWith(fontSize: 20),),
-                        SizedBox(height: 10),
-                        Text('UI / UX Designer', style: TextStyles.textSize14.copyWith(color: Colos.LOGINTEXT1),),
-                        SizedBox(height:12),
-                        Text('Lorem ipsum dolor sit amet, consectetur', style: TextStyles.textSize14.copyWith(fontWeight: FontWeight.w100),),
-                        Text('adipiscing elit. Ornare pretium placerat ut ', style: TextStyles.textSize14.copyWith(fontWeight: FontWeight.w100),),
-                        Text('platea.', style: TextStyles.textSize14.copyWith(fontWeight: FontWeight.w100),)
-                      ],
-                    ),
+                    onTap: () {
+                      setState(() {
+                        _changeColor = !_changeColor;
+                      });
+                    },
                   ),
                   SizedBox(height: 45),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('My Folders',style: TextStyles.textAppBar,),
+                      Text(
+                        'My Folders',
+                        style: TextStyles.textAppBar,
+                      ),
                       Row(
                         children: [
-                          Icon(Icons.add, color: Colos.LOGINTEXT1,),
+                          Icon(
+                            Icons.add,
+                            color: Colos.LOGINTEXT1,
+                          ),
                           SizedBox(width: 25),
-                          SvgPicture.asset('assets/svg/Settings.svg', color: Colos.LOGINTEXT1,),
+                          SvgPicture.asset(
+                            'assets/svg/Settings.svg',
+                            color: Colos.LOGINTEXT1,
+                          ),
                           SizedBox(width: 25),
-                          Icon(Icons.arrow_forward_ios_rounded,color: Colos.LOGINTEXT1,)
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: Colos.LOGINTEXT1,
+                          )
                         ],
                       ),
                     ],
@@ -89,18 +154,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top :365),
+                    margin: EdgeInsets.only(top: 365),
                     height: 300,
                     child: GridView.builder(
                         gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            mainAxisExtent: 128,
-                            childAspectRatio: 3 / 2,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 25),
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200,
+                                mainAxisExtent: 128,
+                                childAspectRatio: 3 / 2,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 25),
                         itemCount: 4,
-                        itemBuilder: (BuildContext context, index){
+                        itemBuilder: (BuildContext context, index) {
                           return Common().FolderFont(
                             name: dummyData[index].name,
                             color: dummyData[index].color,
@@ -112,30 +177,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Recent Uploads', style: TextStyles.textAppBar,),
+                      Text(
+                        'Recent Uploads',
+                        style: TextStyles.textAppBar,
+                      ),
                       Transform.scale(
                         scale: 1.2,
                         child: SvgPicture.asset('assets/svg/Sort.svg'),
                       )
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   ListTile(
                     leading: Transform.scale(
-                      scale: 1.25,
+                        scale: 1.25,
                         child: SvgPicture.asset('assets/svg/Word Icon.svg')),
-                    title: Text('Projects.docx', style: TextStyles.textAppBar,),
-                    subtitle: Text('Novemaber 22.2020',
+                    title: Text(
+                      'Projects.docx',
+                      style: TextStyles.textAppBar,
+                    ),
+                    subtitle: Text(
+                      'Novemaber 22.2020',
                       style: TextStyles.textSize14.copyWith(fontSize: 14),
                     ),
-                    trailing: Text('300kb',style: TextStyles.textSize14.copyWith(fontSize: 12),),
+                    trailing: Text(
+                      '300kb',
+                      style: TextStyles.textSize14.copyWith(fontSize: 12),
+                    ),
                   )
                 ],
               )
             ],
-          )
-        ),
-
+          )),
     );
   }
 }

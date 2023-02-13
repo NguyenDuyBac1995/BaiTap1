@@ -6,12 +6,12 @@ import '../../router/fluro_navigator.dart';
 import '../../router/router_generator.dart';
 
 PreferredSize appBarCommonV1(BuildContext context,
-    {String? strTitle, TextEditingController? controller, bool? suffixIcon}) {
+    {String? strTitle, TextEditingController? controller, bool suffixIcon = true , bool color = true}) {
   return PreferredSize(
       preferredSize: Size.fromHeight(50),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
-        color: Color(0xfff8f8f8),
+        color: color?Color(0xfff8f8f8):Colors.white,
         child: Column(
           children: [
             SizedBox(height: 40),
@@ -30,13 +30,14 @@ PreferredSize appBarCommonV1(BuildContext context,
                   textAlign: TextAlign.center,
                   style: TextStyles.textAppBar,
                 ),
-                suffixIcon == true
-                    ? SizedBox(width: 40)
-                    : IconButton(
-                        onPressed: () {},
-                        icon: Transform.scale(
-                          scale: 1.2,
-                            child: Icon(Icons.more_horiz_outlined)))
+                suffixIcon
+                    ?IconButton(
+                    onPressed: () {},
+                    icon: Transform.scale(
+                        scale: 1.2,
+                        child: Icon(Icons.more_horiz_outlined))):
+                SizedBox(width: 50)
+
               ],
             )
           ],

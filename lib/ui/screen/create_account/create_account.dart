@@ -4,6 +4,7 @@ import 'package:bai_tap_figma1/ui/widget/utils/colors.dart';
 import 'package:bai_tap_figma1/ui/widget/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 
 class CreateAccountScreen extends StatefulWidget {
@@ -27,15 +28,16 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     print('$value');
   }
   bool _obscureText = true;
+  
   final GlobalKey<FormState> _fromKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar:
-          appBarCommonV1(context, strTitle: 'Create Account', suffixIcon: true),
+          appBarCommonV1(context,color: false,suffixIcon: false),
       body: Container(
-        padding: EdgeInsets.symmetric(
+        padding: EdgeInsets.symmetric(vertical: 20,
           horizontal: 25,
         ),
         child: Form(
@@ -43,21 +45,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10),
-              Text(
-                'Create Acccount',
-                style: TextStyle(
-                    color: Color(0xff1B1D28),
-                    fontFamily: 'gilroy',
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold),
-              ),
+              Text('Create Account', style: TextStyles.textSize24.copyWith(fontSize: 32),),
               SizedBox(height: 50),
               Text(
                 "Username or email address",
-                style: TextStyles.textSize20.copyWith(color: Colos.DAtext),
+                style: TextStyles.textItem,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Common().textFromField(
                 textStyle: TextStyles.textSize20,
                 controller: _textUserName,
@@ -68,7 +62,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 "Password",
                 style: TextStyles.textSize20.copyWith(color: Colos.DAtext),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Common().textFromField(
                 textStyle: TextStyles.textSize20,
                 controller: _textPassword,
@@ -96,6 +90,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     strName = _textUserName.text;
                     strPassword = _textPassword.text;
                     resetNewLaunch();
+                    // Common().showToastSuccess('Create Account Success');
                   }
                   );
                 }

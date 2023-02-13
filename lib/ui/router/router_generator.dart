@@ -1,3 +1,4 @@
+import 'package:bai_tap_figma1/ui/screen/change_language/change_language.dart';
 import 'package:bai_tap_figma1/ui/screen/change_password/change_password_screen.dart';
 import 'package:bai_tap_figma1/ui/screen/create_account/create_account.dart';
 import 'package:bai_tap_figma1/ui/screen/home/home_screen.dart';
@@ -27,6 +28,7 @@ class RouterGenerator{
   static const routeSetting =  "/settings";
   static const routeStorageDetail = "/storage";
   static const routeChangePassword = "/changepassword";
+  static const routeChangeLanguage = "/changelanguage";
 
   static Route<dynamic> generateRoute(RouteSettings settings){
     final args = settings.arguments;
@@ -39,7 +41,7 @@ class RouterGenerator{
         return PageTransition(
             child: CreateAccountScreen(),
             type: PageTransitionType.rightToLeft,
-          duration: Duration(milliseconds: 400)
+          duration: Duration(milliseconds: 300)
         );
       case routeHome:
         return MaterialPageRoute(builder: (_)=> const HomeScreen());
@@ -50,14 +52,35 @@ class RouterGenerator{
             duration: Duration(milliseconds: 500)
         );
       case routeProfile:
-        return MaterialPageRoute(builder: (_)=> const ProfileScreen());
+        return PageTransition(
+            child: ProfileScreen(),
+            type: PageTransitionType.rightToLeft,
+            duration: Duration(milliseconds: 300)
+        );
       case routeSetting:
-        return MaterialPageRoute(builder: (_)=> const SettingScreen());
+        return PageTransition(
+            child: SettingScreen(),
+            type: PageTransitionType.rightToLeft,
+            duration: Duration(milliseconds: 300)
+        );
       case routeStorageDetail:
-        return MaterialPageRoute(builder: (_)=> const StorageScreen());
+        return PageTransition(
+            child: StorageScreen(),
+            type: PageTransitionType.rightToLeft,
+            duration: Duration(milliseconds: 300)
+        );
       case routeChangePassword:
-        return MaterialPageRoute(builder: (_)=> const ChangePasswordScreen());
-
+        return PageTransition(
+            child: ChangePasswordScreen(),
+            type: PageTransitionType.rightToLeft,
+            duration: Duration(milliseconds: 300)
+        );
+      case routeChangeLanguage:
+        return PageTransition(
+            child: ChangeLanguageScreen(),
+            type: PageTransitionType.rightToLeft,
+            duration: Duration(milliseconds: 300)
+        );
     }
     return MaterialPageRoute(builder: (_)=> WidgetNotFound() );
   }

@@ -80,13 +80,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(ImageUtils.LOGO),
+                  SizedBox(height: 10),
                   Text("Welcome to", style: TextStyles.textSize20),
+                  SizedBox(height: 10),
                   Text(
                     "Dirbbox",
                     style: TextStyles.textSize20
                         .copyWith(fontSize: 34, fontWeight: FontWeight.w700),
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 10),
                   _showLogin ? _outText() : _textFiled(),
                   SizedBox(height: 50),
                   Container(
@@ -160,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             GestureDetector(
               child: Container(
-                height: 50,
+                height: 55,
                 width: 170,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -180,33 +182,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            GestureDetector(
-              child: Container(
-                height: 50,
-                width: 170,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colos.CA,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Sign in',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
-                    SizedBox(width: 6),
-                    Icon(Icons.arrow_forward, color: Colors.white,)
-                  ],
-                ),
-              ),
-              onTap: () {
-                setState(() {
-                  _showLogin = false;
-                });
-              },
-            ),
+            Common().ButtonStyle(textValue: 'Sign in',width: 170,color: Colos.CA,
+            callback: (){
+              print('$_showLogin');
+              setState(() {
+                _showLogin = false;
+                print('$_showLogin');
+              });
+            })
           ],
         ),
       ],
@@ -224,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Text(
                 "Username or email address",
-                style: TextStyles.textAppBar,
+                style: TextStyles.textItem,
               ),
               SizedBox(height: 10),
               Common().textFromField(
@@ -242,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 10),
               Text(
                 "Password",
-                style: TextStyles.textAppBar,
+                style: TextStyles.textItem,
               ),
               SizedBox(height: 10,),
               Common().textFromField(
@@ -271,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             GestureDetector(
               child: Container(
-                height: 50,
+                height: 55,
                 width: 170,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -299,34 +282,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 });
               },
             ),
-            GestureDetector(
-              child: Container(
-                height: 50,
+              Common().ButtonStyle(
                 width: 170,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colos.CA,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Sign in',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
-                    SizedBox(width: 5),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                    )
-                  ],
-                ),
+                color: Colos.CA,textValue: 'Sign in',
+                callback: _getData,
               ),
-              onTap: () {
-                _getData();
-              },
-            ),
           ],
         ),
       ],
