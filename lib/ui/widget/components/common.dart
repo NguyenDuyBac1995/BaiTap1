@@ -1,10 +1,11 @@
 import 'package:bai_tap_figma1/ui/widget/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class Common {
-  TextFormField textFromField({
+  TextFormField textFromField( {
     String labelValue = "",
     String hintValue = "",
     bool? validation,
@@ -19,7 +20,7 @@ class Common {
     FocusNode? fn,
     VoidCallback? callBackSearch,
     VoidCallback? callback,
-    String? text,
+    String ? validationCondition,
   }) {
     TextFormField textFormField = TextFormField(
       keyboardType: keyboardType,
@@ -28,13 +29,14 @@ class Common {
       obscureText: obscureText,
       focusNode: fn,
       onChanged: (String? val) {
-        val = text;
-        callBackSearch;
+           callBackSearch;
       },
       validator: (String? val) {
         if (validation!) {
           if (val!.isEmpty) {
             return validationError;
+          }else{
+            return validationCondition;
           }
         }
       },
@@ -159,22 +161,24 @@ class Common {
       )),
     );
   }
-
-  ListTile ItemList({
+  Padding ItemList({
     String? strName,
     bool value = false,
     VoidCallback? callback,
   }) {
-    return ListTile(
-      leading: Container(
-        height: 50,
-        width: 4,
-        color: value == true ? Color(0xFF567DF4) : Color(0xffE5E5E5),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 3),
+      child: ListTile(
+        leading: Container(
+          height: 50,
+          width: 4,
+          color: value == true ? Color(0xFF567DF4) : Color(0xffE5E5E5),
+        ),
+        title: Text(strName ?? '',
+            style: TextStyles.textItem.copyWith(
+                fontWeight: value == true ? FontWeight.bold : FontWeight.w300)),
+        onTap: callback,
       ),
-      title: Text(strName ?? '',
-          style: TextStyles.textItem.copyWith(
-              fontWeight: value == true ? FontWeight.bold : FontWeight.w300)),
-      onTap: callback,
     );
   }
 
@@ -213,7 +217,33 @@ class Common {
       ],
     );
   }
-  // void showToastSuccess(String strToast){
+
+  Future<void> selectedURL(String strUrl) async {
+    if (!await launchUrl(Uri.parse(strUrl))) {
+      throw Exception('Could not launch ${Uri.parse(strUrl)}');
+    }
+  }
+
+  void showToastSuccess(BuildContext context , String strText) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 2),
+        content:Text( strText, style: TextStyles.textSize24.copyWith(color: Colors.blue),),
+      ),
+    );
+  }
+
+  void showToastError(BuildContext context , String strText) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 2),
+        content:Text( strText, style: TextStyles.textSize24.copyWith(color: Colors.red),),
+      ),
+    );
+  }
+  // void showToast(BuildContext context, String strToast){
   //   Fluttertoast.showToast(
   //       msg: strToast,
   //       toastLength: Toast.LENGTH_SHORT,
@@ -221,7 +251,7 @@ class Common {
   //       timeInSecForIosWeb: 4,
   //       backgroundColor: Colors.blue,
   //       textColor: Colors.white,
-  //       fontSize: 16.0
+  //       fontSize: 16,
   //   );
   // }
 }
