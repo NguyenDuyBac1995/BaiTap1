@@ -1,3 +1,4 @@
+
 import 'package:bai_tap_figma1/main.dart';
 import 'package:bai_tap_figma1/ui/widget/components/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,10 @@ import 'package:provider/provider.dart';
 import '../../widget/components/common.dart';
 import '../../widget/utils/text_styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../widget/components/common.dart';
+import '../../widget/utils/colors.dart';
+import '../../widget/utils/text_styles.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
@@ -32,6 +37,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +46,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+
         child: Form(
           key: _formKey,
           child: Column(
@@ -238,6 +245,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               )
             ],
           ),
+
+          ],
         ),
       ),
     );
