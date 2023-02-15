@@ -18,18 +18,37 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final TextEditingController _textUserName = TextEditingController();
   final TextEditingController _textPassword = TextEditingController();
 
-  String? strName;
-  String? strPassword;
+ String? strName  ;
+ String? strPassword ;
+ var checkUserName;
 
-  resetNewLaunch() async {
+
+  final _formKey = GlobalKey<FormState>();
+  getAccount() async {
+    print(strName);
+    print(strPassword);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('$strName', '$strPassword');
-    var value = prefs.getString('$strName');
-    print('$value');
+    checkUserName = prefs.getString('$strName');
+    if(_formKey.currentState!.validate()){
+      await prefs.setString('$strName', '$strPassword');
+      Common().showToastSuccess(context, "Create account success");
+    }
   }
+
+
   bool _obscureText = true;
-  
-  final GlobalKey<FormState> _fromKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _textUserName.addListener(() {
+     strName = _textUserName.text ;
+    });
+    _textPassword.addListener(() {
+      strPassword = _textPassword.text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +60,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           horizontal: 25,
         ),
         child: Form(
-          key: _fromKey,
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -52,33 +71,74 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 style: TextStyles.textItem,
               ),
               SizedBox(height: 10),
-              Common().textFromField(
-                textStyle: TextStyles.textSize20,
+              TextFormField(
+                style: TextStyles.textSize20,
                 controller: _textUserName,
-                icons: Icon(Icons.person),
+                decoration:InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 0.5, color: Colors.blue),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(width: 0.2, color: Color(0xffEEF2FE)),
+                      borderRadius: BorderRadius.circular(12)),
+                  prefixIcon: Icon(Icons.person),
+                ),
+                validator: (value)
+                  {
+                    print(checkUserName);
+                    if(value!.isEmpty){
+                      return 'Please enter some text';
+                    }else{
+                     return checkUserName != null ?'Account already exist' : null ;
+                    }
+                  },
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 50),
               Text(
                 "Password",
-                style: TextStyles.textSize20.copyWith(color: Colos.DAtext),
+                style: TextStyles.textItem,
               ),
               SizedBox(height: 10),
-              Common().textFromField(
-                textStyle: TextStyles.textSize20,
+              TextFormField(
+                style: TextStyles.textSize20,
                 controller: _textPassword,
                 obscureText: _obscureText,
-                icons: Icon(Icons.lock_outline),
-                suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                    icon: Icon(
-                        _obscureText ? Icons.visibility_off : Icons.visibility)),
-                validation: true,
-                validationError: _textPassword.text.length < 6 ? 'Password too short' : null ,
+                decoration:InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 0.5, color: Colors.blue),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(width: 0.2, color: Color(0xffEEF2FE)),
+                      borderRadius: BorderRadius.circular(12)),
+                  prefixIcon: Icon(Icons.lock),
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: Icon(
+                          _obscureText ? Icons.visibility_off : Icons.visibility)),
+                ),
+                validator: (String? value)
+                {
+                   if(value!.isEmpty){
+                     return 'Please enter some text';
+                   }else{
+                     return value.length < 6 ? 'Password too short': null;
+                   }
+                },
               ),
+              // Common().textFromField(
+              //   icons: Icon(Icons.person),
+              //   textStyle: TextStyles.textSize20,
+              //   controller: _textUserName,
+              //   validation: true,
+              //   validationError: 'Please enter some text',
+              //   validationC: checkUserName != null ?'Account da ton tai' : null ,
+              // ),
               SizedBox(height: 50),
               Common().ButtonStyle(
                 color: Colos.CA,
@@ -86,13 +146,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 width: MediaQuery.of(context).size.width,
                 icon: false,
                 callback: (){
-                  setState(() {
-                    strName = _textUserName.text;
-                    strPassword = _textPassword.text;
-                    resetNewLaunch();
-                    // Common().showToastSuccess('Create Account Success');
-                  }
-                  );
+                  getAccount();
                 }
               )
             ],
